@@ -1,0 +1,44 @@
+{
+  "samples": [
+    {
+      "label": "🔴 Coordinated Attack",
+      "description": "High tabular risk AND structural Mule connection (BLOCK expected)",
+      "amount": 250000,
+      "time": 2.5,
+      "sender_id": "ACC_8821",
+      "receiver_id": "MUL_9921",
+      "transaction_type": "TRANSFER",
+      "location_risk": 0.85
+    },
+    {
+      "label": "🟡 Mule Account Transfer",
+      "description": "Low tabular risk, BUT high structural Mule connectivity (FLAG expected)",
+      "amount": 4500,
+      "time": 14.0,
+      "sender_id": "ACC_3391",
+      "receiver_id": "MUL_3301",
+      "transaction_type": "IMPS",
+      "location_risk": 0.12
+    },
+    {
+      "label": "🟡 Transactional Fraud",
+      "description": "High tabular risk, BUT normal structural connectivity (FLAG expected)",
+      "amount": 185000,
+      "time": 3.2,
+      "sender_id": "ACC_4421",
+      "receiver_id": "ACC_7832",
+      "transaction_type": "ONLINE",
+      "location_risk": 0.92
+    },
+    {
+      "label": "🟢 Normal Activity",
+      "description": "Low tabular risk AND normal structural connectivity (ALLOW expected)",
+      "amount": 1200,
+      "time": 11.5,
+      "sender_id": "CORP_INFOSYS",
+      "receiver_id": "ACC_2241",
+      "transaction_type": "UPI",
+      "location_risk": 0.05
+    }
+  ]
+}

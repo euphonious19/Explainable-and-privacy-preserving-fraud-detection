@@ -1,0 +1,115 @@
+# ============================================================
+# FraudShield — .gitignore
+# Python + Node.js + React + Docker project
+# ============================================================
+
+# ── Python ──────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.pyd
+
+# Virtual environments
+venv/
+env/
+.env/
+.venv/
+ENV/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+.eggs/
+*.egg
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# ── Environment Variables ────────────────────────────────────────────────────
+# NEVER commit .env files — they may contain API keys, secrets, passwords.
+.env
+.env.*
+!.env.example        # Track the template — it has NO real values
+
+# Hugging Face Spaces secrets file
+secrets.toml
+
+# ── Node.js / React ──────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Build output
+frontend/dist/
+frontend/dist-ssr/
+*.local
+
+# Vite
+.vite/
+
+# TypeScript
+*.tsbuildinfo
+
+# ── IDE / Editor ─────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+
+# ── Docker ───────────────────────────────────────────────────
+.dockerignore
+
+# ── Saved Models (large binary files) ───────────────────────
+backend/saved_models/*.pkl
+backend/saved_models/*.joblib
+backend/saved_models/*.h5
+backend/saved_models/*.pt
+backend/saved_models/*.pth
+# Uncomment below to track model files (not recommended for large models):
+# !backend/saved_models/.gitkeep
+
+# ── Static build output (served by backend) ──────────────────
+backend/static/
+
+# ── Logs ─────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── OS generated ─────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini

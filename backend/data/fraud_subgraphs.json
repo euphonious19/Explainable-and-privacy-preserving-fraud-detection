@@ -1,0 +1,88 @@
+{
+  "mule_chain": {
+    "pattern": "Fan-In Money Mule Chain",
+    "description": "Multiple source accounts funnel funds through a central mule account before withdrawing.",
+    "nodes": [
+      {"id": "SRC_A", "label": "Source A", "type": "source", "risk": 0.3, "amount": 25000},
+      {"id": "SRC_B", "label": "Source B", "type": "source", "risk": 0.35, "amount": 31000},
+      {"id": "SRC_C", "label": "Source C", "type": "source", "risk": 0.28, "amount": 18500},
+      {"id": "SRC_D", "label": "Source D", "type": "source", "risk": 0.4, "amount": 42000},
+      {"id": "MULE_01", "label": "Mule Account", "type": "mule", "risk": 0.94, "amount": 116500},
+      {"id": "INTER_01", "label": "Intermediary", "type": "mule", "risk": 0.78, "amount": 110000},
+      {"id": "sender_placeholder", "label": "Sender", "type": "sender", "risk": 0.65, "amount": 0, "highlight": true},
+      {"id": "receiver_placeholder", "label": "Receiver", "type": "receiver", "risk": 0.82, "amount": 0, "highlight": true},
+      {"id": "DEST_01", "label": "Destination", "type": "destination", "risk": 0.85, "amount": 105000}
+    ],
+    "edges": [
+      {"source": "SRC_A", "target": "MULE_01", "amount": 25000, "suspicious": true},
+      {"source": "SRC_B", "target": "MULE_01", "amount": 31000, "suspicious": true},
+      {"source": "SRC_C", "target": "MULE_01", "amount": 18500, "suspicious": true},
+      {"source": "SRC_D", "target": "MULE_01", "amount": 42000, "suspicious": true},
+      {"source": "sender_placeholder", "target": "receiver_placeholder", "amount": 0, "suspicious": true},
+      {"source": "MULE_01", "target": "INTER_01", "amount": 110000, "suspicious": true},
+      {"source": "INTER_01", "target": "DEST_01", "amount": 105000, "suspicious": true}
+    ]
+  },
+  "layering": {
+    "pattern": "Layering / Structuring Pattern",
+    "description": "Funds moved through multiple layers of accounts to obscure origin.",
+    "nodes": [
+      {"id": "SRC_L1", "label": "Layer 1", "type": "source", "risk": 0.45, "amount": 50000},
+      {"id": "SRC_L2", "label": "Layer 2", "type": "mule", "risk": 0.62, "amount": 48000},
+      {"id": "SRC_L3", "label": "Layer 3", "type": "mule", "risk": 0.78, "amount": 46000},
+      {"id": "sender_placeholder", "label": "Sender", "type": "sender", "risk": 0.6, "amount": 0, "highlight": true},
+      {"id": "receiver_placeholder", "label": "Receiver", "type": "receiver", "risk": 0.7, "amount": 0, "highlight": true},
+      {"id": "FINAL_L", "label": "Final Layer", "type": "destination", "risk": 0.88, "amount": 44000}
+    ],
+    "edges": [
+      {"source": "SRC_L1", "target": "SRC_L2", "amount": 50000, "suspicious": false},
+      {"source": "SRC_L2", "target": "SRC_L3", "amount": 48000, "suspicious": true},
+      {"source": "SRC_L3", "target": "sender_placeholder", "amount": 46000, "suspicious": true},
+      {"source": "sender_placeholder", "target": "receiver_placeholder", "amount": 0, "suspicious": true},
+      {"source": "receiver_placeholder", "target": "FINAL_L", "amount": 44000, "suspicious": true}
+    ]
+  },
+  "suspicious_endpoint": {
+    "pattern": "Known Suspicious Endpoint",
+    "description": "Transaction directed to a previously identified fraudulent account.",
+    "nodes": [
+      {"id": "sender_placeholder", "label": "Sender", "type": "sender", "risk": 0.4, "amount": 0, "highlight": true},
+      {"id": "receiver_placeholder", "label": "Known Fraud Account", "type": "mule", "risk": 0.95, "amount": 0, "highlight": true},
+      {"id": "PREV_VIC_1", "label": "Prev. Victim 1", "type": "source", "risk": 0.2, "amount": 32000},
+      {"id": "PREV_VIC_2", "label": "Prev. Victim 2", "type": "source", "risk": 0.25, "amount": 28000},
+      {"id": "PREV_VIC_3", "label": "Prev. Victim 3", "type": "source", "risk": 0.18, "amount": 45000}
+    ],
+    "edges": [
+      {"source": "PREV_VIC_1", "target": "receiver_placeholder", "amount": 32000, "suspicious": true},
+      {"source": "PREV_VIC_2", "target": "receiver_placeholder", "amount": 28000, "suspicious": true},
+      {"source": "PREV_VIC_3", "target": "receiver_placeholder", "amount": 45000, "suspicious": true},
+      {"source": "sender_placeholder", "target": "receiver_placeholder", "amount": 0, "suspicious": true}
+    ]
+  },
+  "moderate_risk": {
+    "pattern": "Moderate Structural Risk",
+    "description": "Slightly elevated structural risk — no definitive mule pattern.",
+    "nodes": [
+      {"id": "sender_placeholder", "label": "Sender", "type": "sender", "risk": 0.45, "amount": 0, "highlight": true},
+      {"id": "receiver_placeholder", "label": "Receiver", "type": "receiver", "risk": 0.52, "amount": 0, "highlight": true},
+      {"id": "RELATED_1", "label": "Related Acct 1", "type": "source", "risk": 0.35, "amount": 12000},
+      {"id": "RELATED_2", "label": "Related Acct 2", "type": "source", "risk": 0.38, "amount": 8000}
+    ],
+    "edges": [
+      {"source": "RELATED_1", "target": "sender_placeholder", "amount": 12000, "suspicious": false},
+      {"source": "RELATED_2", "target": "sender_placeholder", "amount": 8000, "suspicious": false},
+      {"source": "sender_placeholder", "target": "receiver_placeholder", "amount": 0, "suspicious": false}
+    ]
+  },
+  "clean": {
+    "pattern": "Clean Transaction",
+    "description": "Normal transaction with no suspicious structural patterns.",
+    "nodes": [
+      {"id": "sender_placeholder", "label": "Sender", "type": "sender", "risk": 0.1, "amount": 0, "highlight": true},
+      {"id": "receiver_placeholder", "label": "Receiver", "type": "receiver", "risk": 0.08, "amount": 0, "highlight": true}
+    ],
+    "edges": [
+      {"source": "sender_placeholder", "target": "receiver_placeholder", "amount": 0, "suspicious": false}
+    ]
+  }
+}
